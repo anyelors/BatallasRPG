@@ -29,13 +29,37 @@ public class EjemploBatallaRPGDAO {
             clases = claseDAO.listar();
             clases.forEach(System.out::println);
 
+            /*
+            Personaje atc = personajesDAO.obtener(2L);
+            Personaje def = personajesDAO.obtener(4L);
+            Batalla batalla = new Batalla(atc, def, def, LocalDateTime.of(2025, 10, 22, 15, 25), "batalla a muerte");
+            batallaDAO.alta(batalla);
+
+            atc = personajesDAO.obtener(3L);
+            def = personajesDAO.obtener(5L);
+            batalla = new Batalla(atc, def, atc, LocalDateTime.of(2025, 10, 22, 15, 25), "batalla o muere");
+            batallaDAO.alta(batalla);
+            */
+
             System.out.println("Listado de Batallas");
             batallas = batallaDAO.listar();
             batallas.forEach(System.out::println);
 
             /*
-            Clase clase = claseDAO.obtener(4L);
-            Personaje personaje1 = new Personaje("Mascara", clase);
+            Clase clase = claseDAO.obtener(1L);
+            Personaje personaje1 = new Personaje("Pie Grande", clase);
+            personajesDAO.alta(personaje1);
+
+            clase = claseDAO.obtener(4L);
+            personaje1 = new Personaje("Mascara", clase);
+            personajesDAO.alta(personaje1);
+
+            clase = claseDAO.obtener(2L);
+            personaje1 = new Personaje("El Pecas", clase);
+            personajesDAO.alta(personaje1);
+
+            clase = claseDAO.obtener(3L);
+            personaje1 = new Personaje("Care Puntilla", clase);
             personajesDAO.alta(personaje1);
             */
 

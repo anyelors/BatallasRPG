@@ -83,14 +83,14 @@ public class Batalla {
     @Override
     public String toString() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         return "Batalla [" +
                 "Id = " + id +
                 ", Atacante = " + id_atacante.getNombre() +
                 ", Defensor = " + id_defensor.getNombre() +
                 ", Vencedor = " + id_vencedor.getNombre() +
-                ", Fecha = " + formatter.format(fecha) +
+                ", Fecha = " + fecha.format(formatter) +
                 ", Resumen = '" + resumen + '\'' +
                 ']';
     }

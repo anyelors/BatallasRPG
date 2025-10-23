@@ -79,7 +79,7 @@ public class BatallaDAO implements CrudDAO<Batalla> {
                 batalla.setId_defensor(defensor);
                 Personaje vencedor = personajeDAO.obtener(rs.getLong("id_vencedor"));
                 batalla.setId_vencedor(vencedor);
-                batalla.setFecha(LocalDateTime.from(rs.getDate("fecha").toLocalDate().atStartOfDay()));
+                batalla.setFecha(rs.getTimestamp("fecha").toLocalDateTime());
                 batalla.setResumen(rs.getString("resumen"));
             }
         }
@@ -88,6 +88,17 @@ public class BatallaDAO implements CrudDAO<Batalla> {
 
     @Override
     public void alta(Batalla elemento) throws SQLException {
+        String sql = "INSERT INTO batallas( id_atacante, id_defensor, id_vencedor, fecha, resumen ) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pst.setLong(1, elemento.getId_atacante().getId());
+            pst.setLong(2, elemento.getId_defensor().getId());
+            pst.setLong(3, elemento.getId_defensor().getId());
+            pst.setObject(4, elemento.getFecha());
+            pst.setString(5, elemento.getResumen());
 
+            pst.executeUpdate();
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) elemento.setId(rs.getLong(1));
+        }
     }
 }

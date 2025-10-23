@@ -77,6 +77,54 @@ public class Personaje {
         this.vida = vida;
     }
 
+    // Reduce la vida del personaje por el daño recibido. Si el daño es superior a la vida, esta se reduce 0.
+    public void pierdeVida( Long daño ) {
+        if (daño >= this.vida) {
+            this.vida = 0L;
+        } else {
+            this.vida -= daño;
+        }
+    }
+
+    //Indica si la vida del persona es 0
+    public boolean estaMuerto() {
+        return this.vida <= 0;
+    }
+
+    /*
+    Si el personaje es un Guerrero la bonificación es su nivel * 3 que lo hace depender de su fuerza
+    SI el personaje es un Mago la bonificación es su experiencia / 5 que lo hace depender de su experiencia
+    Si el personaje es un Arquero la bonificación es un valor aleatorio entre 0 y 20 que lo hace depender de su puntería
+    Si el personaje es un Paladín la bonificación es su vida / 10 que lo hace depender de su vitalidad en el momento. 
+    La bonificación de la suerte es un valor aleatorio que suma entre 0 y 15 puntos de ataque máximo
+    */
+    public float obtenerBonus(Clase id_clase){
+        return  switch (this.id_clase.getNombre()) {
+            case "Guerrero" -> (this.nivel * 3);
+            case "Mago" -> ((float) this.experiencia / 5);
+            case "Arquero" -> (float)(Math.random() * 20);
+            case "Paladín" -> ((float) this.vida / 10);
+            default -> 0.0f;
+        };
+    }
+
+    /*
+     * Los personajes pueden combatir entre ellos. En un combate deben seleccionarse dos personajes ( uno hace de atacante y el otro de defensor ). 
+       Cuando dos personajes combaten se calculan unos puntos de ataque para cada uno de ellos empleando una fórmula concreta que depende del nivel, vida y clase del personaje:
+
+       puntosAtaque = ( nivel * 10 ) + ( vida / 5 ) + ( bonificacion_clase ) + ( bonificación_suerte )
+       La bonificación de la clase depende del la clase del persona y suma puntos de ataque según estas reglas:
+
+       El personaje que saca una mayor cantidad de puntos de ataque es declarado vencedor de la batalla. Este aumenta su experiencia un total de 10 * nivel puntos de experiencia y recupera vida un valor equivalente a la mitad de la diferencia entre los puntos de ataque de ambos personajes. La vida no puede incrementarse por encima de 100
+
+       El personaje vencido pierde en vida la diferencia entre los puntos de ataque del vencedor y los suyos. SI el total de vida remanente queda inferior a 0 se asigna 0 y el personaje es considerado muerto. En caso contrario, se considera que el personaje ha sobrevivido al ataque y aumenta su experiencia un total de 3 * nivel puntos de experiencia por haber sobrevivido.
+     */
+    public float calcularAtaque() {
+        float bonificacionClase = obtenerBonus(this.id_clase);
+        float bonificacionSuerte = (float)(Math.random() * 15);
+        return (this.nivel * 10) + (this.vida / 5) + bonificacionClase + bonificacionSuerte;
+    }
+
     @Override
     public String toString() {
         return "Personaje [" +
