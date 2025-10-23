@@ -12,12 +12,12 @@ public class Personaje {
     public Personaje() {
     }
 
-    public Personaje(String nombre, Clase id_clase, Long nivel, Long experiencia, Long vida) {
+    public Personaje(String nombre, Clase id_clase) {
         this.nombre = nombre;
         this.id_clase = id_clase;
-        this.nivel = nivel;
-        this.experiencia = experiencia;
-        this.vida = vida;
+        this.nivel = 0L;
+        this.experiencia = 0L;
+        this.vida = 100L;
     }
 
     public Personaje(Long id, String nombre, Clase id_clase, Long nivel, Long experiencia, Long vida) {
@@ -81,7 +81,7 @@ public class Personaje {
     public String toString() {
         return "Personaje [" +
                 "Id = " + id +
-                ", Nombre = '" + nombre + '\'' +
+                ", Nombre = " + nombre  +
                 ", Clase = " + id_clase.getNombre() +
                 ", Nivel = " + nivel +
                 ", Experiencia = " + experiencia +

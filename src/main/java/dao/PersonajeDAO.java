@@ -1,14 +1,11 @@
 package dao;
 
-import modelo.Clase;
-import modelo.Personaje;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import modelo.Clase;
+import modelo.Personaje;
 
 public class PersonajeDAO implements CrudDAO<Personaje> {
 
@@ -21,9 +18,11 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
     @Override
     public List<Personaje> listar() throws SQLException {
         List<Personaje> personajes = new ArrayList<>();
+        CrudDAO<Clase> claseDAO = new ClaseDAO(con);
+
         String sql = "SELECT p.id, " +
                 "p.nombre, " +
-                "(SELECT cl.nombre FROM clases cl WHERE cl.id = p.id_clase) des_clase, " +
+                "p.id_clase, " +
                 "p.experiencia, " +
                 "p.nivel, " +
                 "p.vida " +
@@ -34,15 +33,64 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                long id = rs.getLong("id");
-                String nombre = rs.getString("nombre");
-                Clase clase = new Clase(rs.getString("des_clase"));
-                long experiencia = rs.getLong("experiencia");
-                long nivel = rs.getLong("nivel");
-                long vida = rs.getLong("vida");
-                personajes.add(new Personaje(id, nombre, clase, experiencia, nivel, vida));
+                Personaje personaje = new Personaje();
+                personaje.setId(rs.getLong("id"));
+                personaje.setNombre(rs.getString("nombre"));
+                Clase clase = claseDAO.obtener(rs.getLong("id_clase"));
+                personaje.setId_clase(clase);
+                personaje.setExperiencia(rs.getLong("experiencia"));
+                personaje.setNivel(rs.getLong("nivel"));
+                personaje.setVida(rs.getLong("vida"));
+                personajes.add(personaje);
             }
         }
         return personajes;
+    }
+
+    @Override
+    public Personaje obtener(Long id) throws SQLException {
+        Personaje personaje = null;
+        CrudDAO<Clase> claseDAO = new ClaseDAO(con);
+
+        String sql = "SELECT p.id, " +
+                "p.nombre, " +
+                "p.id_clase, " +
+                "p.experiencia, " +
+                "p.nivel, " +
+                "p.vida " +
+                "FROM personajes p " +
+                "WHERE p.id = " + id;
+        try (Statement st = con.createStatement()) {
+
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                personaje = new Personaje();
+                personaje.setId(rs.getLong("id"));
+                personaje.setNombre(rs.getString("nombre"));
+                Clase clase = claseDAO.obtener(rs.getLong("id_clase"));
+                personaje.setId_clase(clase);
+                personaje.setExperiencia(rs.getLong("experiencia"));
+                personaje.setNivel(rs.getLong("nivel"));
+                personaje.setVida(rs.getLong("vida"));
+            }
+        }
+        return personaje;
+    }
+
+    @Override
+    public void alta(Personaje elemento) throws SQLException {
+        String sql = "INSERT INTO personajes( nombre, id_clase, nivel, experiencia, vida ) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pst.setString(1, elemento.getNombre());
+            pst.setLong(2, elemento.getId_clase().getId());
+            pst.setLong(3, elemento.getNivel());
+            pst.setLong(4, elemento.getExperiencia());
+            pst.setLong(5, elemento.getVida());
+
+            pst.executeUpdate();
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) elemento.setId(rs.getLong(1));
+        }
     }
 }

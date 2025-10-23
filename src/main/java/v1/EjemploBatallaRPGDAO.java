@@ -1,8 +1,12 @@
 package v1;
 
+import dao.BatallaDAO;
+import dao.ClaseDAO;
 import dao.CrudDAO;
 import dao.PersonajeDAO;
 import datasource.Database;
+import modelo.Batalla;
+import modelo.Clase;
 import modelo.Personaje;
 
 import java.sql.Connection;
@@ -12,14 +16,39 @@ import java.util.List;
 public class EjemploBatallaRPGDAO {
     public static void main(String[] args) {
         List<Personaje> personajes;
-        try (Connection con = Database.getConnection()){
-            CrudDAO<Personaje> personajesDAO = new PersonajeDAO(con);
+        List<Clase> clases;
+        List<Batalla> batallas;
 
+        try (Connection con = Database.getConnection()) {
+            CrudDAO<Clase> claseDAO = new ClaseDAO(con);
+            CrudDAO<Personaje> personajesDAO = new PersonajeDAO(con);
+            CrudDAO<Batalla> batallaDAO = new BatallaDAO(con);
+
+
+            System.out.println("Listado de Clases de Jugador");
+            clases = claseDAO.listar();
+            clases.forEach(System.out::println);
+
+            System.out.println("Listado de Batallas");
+            batallas = batallaDAO.listar();
+            batallas.forEach(System.out::println);
+
+            /*
+            Clase clase = claseDAO.obtener(4L);
+            Personaje personaje1 = new Personaje("Mascara", clase);
+            personajesDAO.alta(personaje1);
+            */
+
+            System.out.println("Listar personajes");
             personajes = personajesDAO.listar();
             personajes.forEach(System.out::println);
 
-        } catch (SQLException ex){
-            System.out.println("Codigo error: + " + ex.getErrorCode());
+            System.out.println("Obtener personaje");
+            Personaje personaje = personajesDAO.obtener(1L);
+            System.out.println(personaje);
+
+        } catch (SQLException ex) {
+            System.out.println("Código error: + " + ex.getErrorCode());
             System.out.println("Mensaje error: + " + ex.getMessage());
             System.out.println("Estado SQL: + " + ex.getSQLState());
         }
