@@ -34,9 +34,7 @@ public class Clase {
 
     @Override
     public String toString() {
-        return "Clase [" +
-                "Id = " + id +
-                ", Nombre = '" + nombre + '\'' +
-                ']';
+        return  "#" + id +
+                " " + nombre;
     }
 }

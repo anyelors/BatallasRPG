@@ -18,7 +18,8 @@ public class ClaseDAO implements CrudDAO<Clase> {
         List<Clase> clases = new ArrayList<>();
         String sql = "SELECT c.id, " +
                 "c.nombre " +
-                "FROM clases c";
+                "FROM clases c " +
+                "ORDER BY c.id";
         try (var st = con.createStatement()) {
             var rs = st.executeQuery(sql);
 
@@ -53,7 +54,7 @@ public class ClaseDAO implements CrudDAO<Clase> {
     }
 
     @Override
-    public void alta(Clase elemento) throws SQLException {
+    public void insertar(Clase elemento) throws SQLException {
         String sql = "INSERT INTO clases( nombre ) VALUES (?)";
         try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, elemento.getNombre());
@@ -61,6 +62,16 @@ public class ClaseDAO implements CrudDAO<Clase> {
             ResultSet rs = pst.getGeneratedKeys();
             if (rs.next()) elemento.setId(rs.getLong(1));
         }
+    }
+
+    @Override
+    public void eliminar(Clase obj) throws SQLException {
+        throw new SQLException("No implementado");
+    }
+
+    @Override
+    public void actualizar(Clase obj) throws SQLException {
+        throw new SQLException("No implementado");
     }
 
 }

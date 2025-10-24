@@ -9,6 +9,11 @@ public interface CrudDAO<T> {
 
     T obtener(Long id) throws SQLException;
 
-    void alta(T elemento) throws SQLException;
+    void insertar(T elemento) throws SQLException;
+
+    void eliminar( T obj ) throws SQLException;
+
+    void actualizar( T obj ) throws SQLException;
+
 
 }

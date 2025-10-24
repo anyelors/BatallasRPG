@@ -87,7 +87,7 @@ public class BatallaDAO implements CrudDAO<Batalla> {
     }
 
     @Override
-    public void alta(Batalla elemento) throws SQLException {
+    public void insertar(Batalla elemento) throws SQLException {
         String sql = "INSERT INTO batallas( id_atacante, id_defensor, id_vencedor, fecha, resumen ) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setLong(1, elemento.getId_atacante().getId());
@@ -100,5 +100,15 @@ public class BatallaDAO implements CrudDAO<Batalla> {
             ResultSet rs = pst.getGeneratedKeys();
             if (rs.next()) elemento.setId(rs.getLong(1));
         }
+    }
+
+    @Override
+    public void eliminar(Batalla obj) throws SQLException {
+        throw new SQLException("No implementado");
+    }
+
+    @Override
+    public void actualizar(Batalla obj) throws SQLException {
+        throw new SQLException("No implementado");
     }
 }

@@ -85,13 +85,11 @@ public class Batalla {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        return "Batalla [" +
-                "Id = " + id +
-                ", Atacante = " + id_atacante.getNombre() +
-                ", Defensor = " + id_defensor.getNombre() +
-                ", Vencedor = " + id_vencedor.getNombre() +
-                ", Fecha = " + fecha.format(formatter) +
-                ", Resumen = '" + resumen + '\'' +
-                ']';
+        return  "#" + id +
+                "El ( " + fecha.format(formatter) +
+                " ) Combate " + id_atacante.getNombre() +
+                " VS " + id_defensor.getNombre() +
+                " Vencedor " + id_vencedor.getNombre() +
+                ". " + resumen;
     }
 }
