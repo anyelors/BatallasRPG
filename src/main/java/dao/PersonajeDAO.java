@@ -95,11 +95,6 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
     }
 
     @Override
-    public void eliminar(Personaje obj) throws SQLException {
-        throw new SQLException("No implementado");
-    }
-
-    @Override
     public void actualizar(Personaje elemento) throws SQLException {
         String sql = "UPDATE personajes SET " +
                 "nombre = ? " +
@@ -118,5 +113,10 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
 
             pst.executeUpdate();
         }
+    }
+
+    @Override
+    public void eliminar(Personaje obj) throws SQLException {
+        throw new SQLException("No implementado");
     }
 }

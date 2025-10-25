@@ -88,7 +88,7 @@ public class ServicioImpl implements Servicio {
             if ( defensor.estaMuerto()) {
                 mensaje = defensor.getNombre() + " esta muerto.";
             }
-            batalla = new Batalla(atacante, defensor,vencedor, LocalDate.now().atStartOfDay(), mensaje);
+            batalla = new Batalla(atacante, defensor, vencedor, LocalDate.now().atStartOfDay(), mensaje);
             try {
                 // Para eliminar autocommit
                 conn.setAutoCommit(false);

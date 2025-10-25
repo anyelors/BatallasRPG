@@ -6,28 +6,28 @@ import java.time.format.DateTimeFormatter;
 public class Batalla {
 
     private Long id;
-    private Personaje id_atacante;
-    private Personaje id_defensor;
-    private Personaje id_vencedor;
+    private Personaje atacante;
+    private Personaje defensor;
+    private Personaje vencedor;
     private LocalDateTime fecha;
     private String resumen;
 
     public Batalla() {
     }
 
-    public Batalla(Personaje id_atacante, Personaje id_defensor, Personaje id_vencedor, LocalDateTime fecha, String resumen) {
-        this.id_atacante = id_atacante;
-        this.id_defensor = id_defensor;
-        this.id_vencedor = id_vencedor;
+    public Batalla(Personaje atacante, Personaje defensor, Personaje vencedor, LocalDateTime fecha, String resumen) {
+        this.atacante = atacante;
+        this.defensor = defensor;
+        this.vencedor = vencedor;
         this.fecha = fecha;
         this.resumen = resumen;
     }
 
-    public Batalla(Long id, Personaje id_atacante, Personaje id_defensor, Personaje id_vencedor, LocalDateTime fecha, String resumen) {
+    public Batalla(Long id, Personaje atacante, Personaje defensor, Personaje vencedor, LocalDateTime fecha, String resumen) {
         this.id = id;
-        this.id_atacante = id_atacante;
-        this.id_defensor = id_defensor;
-        this.id_vencedor = id_vencedor;
+        this.atacante = atacante;
+        this.defensor = defensor;
+        this.vencedor = vencedor;
         this.fecha = fecha;
         this.resumen = resumen;
     }
@@ -40,28 +40,28 @@ public class Batalla {
         this.id = id;
     }
 
-    public Personaje getId_atacante() {
-        return id_atacante;
+    public Personaje getAtacante() {
+        return atacante;
     }
 
-    public void setId_atacante(Personaje id_atacante) {
-        this.id_atacante = id_atacante;
+    public void setAtacante(Personaje atacante) {
+        this.atacante = atacante;
     }
 
-    public Personaje getId_defensor() {
-        return id_defensor;
+    public Personaje getDefensor() {
+        return defensor;
     }
 
-    public void setId_defensor(Personaje id_defensor) {
-        this.id_defensor = id_defensor;
+    public void setDefensor(Personaje defensor) {
+        this.defensor = defensor;
     }
 
-    public Personaje getId_vencedor() {
-        return id_vencedor;
+    public Personaje getVencedor() {
+        return vencedor;
     }
 
-    public void setId_vencedor(Personaje id_vencedor) {
-        this.id_vencedor = id_vencedor;
+    public void setVencedor(Personaje vencedor) {
+        this.vencedor = vencedor;
     }
 
     public LocalDateTime getFecha() {
@@ -87,9 +87,9 @@ public class Batalla {
 
         return  "#" + id +
                 "El ( " + fecha.format(formatter) +
-                " ) Combate " + id_atacante.getNombre() +
-                " VS " + id_defensor.getNombre() +
-                " Vencedor " + id_vencedor.getNombre() +
+                " ) Combate " + atacante.getNombre() +
+                " VS " + defensor.getNombre() +
+                " Vencedor " + vencedor.getNombre() +
                 ". " + resumen;
     }
 }

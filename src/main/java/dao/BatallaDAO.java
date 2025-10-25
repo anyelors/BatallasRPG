@@ -4,7 +4,6 @@ import modelo.Batalla;
 import modelo.Personaje;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,11 +39,11 @@ public class BatallaDAO implements CrudDAO<Batalla> {
                 Personaje vencedor = new Personaje();
                 batalla.setId(rs.getLong("id"));
                 atacante = personajeDAO.obtener(rs.getLong("id_atacante"));
-                batalla.setId_atacante(atacante);
+                batalla.setAtacante(atacante);
                 defensor = personajeDAO.obtener(rs.getLong("id_defensor"));
-                batalla.setId_defensor(defensor);
+                batalla.setDefensor(defensor);
                 vencedor = personajeDAO.obtener(rs.getLong("id_vencedor"));
-                batalla.setId_vencedor(vencedor);
+                batalla.setVencedor(vencedor);
                 batalla.setFecha(rs.getDate("fecha").toLocalDate().atStartOfDay());
                 batalla.setResumen(rs.getString("resumen"));
                 batallas.add(batalla);
@@ -74,11 +73,11 @@ public class BatallaDAO implements CrudDAO<Batalla> {
                 batalla = new Batalla();
                 batalla.setId(rs.getLong("id"));
                 Personaje atacante = personajeDAO.obtener(rs.getLong("id_atacante"));
-                batalla.setId_atacante(atacante);
+                batalla.setAtacante(atacante);
                 Personaje defensor = personajeDAO.obtener(rs.getLong("id_defensor"));
-                batalla.setId_defensor(defensor);
+                batalla.setDefensor(defensor);
                 Personaje vencedor = personajeDAO.obtener(rs.getLong("id_vencedor"));
-                batalla.setId_vencedor(vencedor);
+                batalla.setVencedor(vencedor);
                 batalla.setFecha(rs.getTimestamp("fecha").toLocalDateTime());
                 batalla.setResumen(rs.getString("resumen"));
             }
@@ -90,9 +89,9 @@ public class BatallaDAO implements CrudDAO<Batalla> {
     public void insertar(Batalla elemento) throws SQLException {
         String sql = "INSERT INTO batallas( id_atacante, id_defensor, id_vencedor, fecha, resumen ) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pst.setLong(1, elemento.getId_atacante().getId());
-            pst.setLong(2, elemento.getId_defensor().getId());
-            pst.setLong(3, elemento.getId_defensor().getId());
+            pst.setLong(1, elemento.getAtacante().getId());
+            pst.setLong(2, elemento.getDefensor().getId());
+            pst.setLong(3, elemento.getDefensor().getId());
             pst.setObject(4, elemento.getFecha());
             pst.setString(5, elemento.getResumen());
 
