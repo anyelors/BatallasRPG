@@ -102,7 +102,7 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
                 ", nivel = ? " +
                 ", experiencia = ?" +
                 ", vida = ? " +
-                "WHERE p.id = ?";
+                "WHERE id = ?";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, elemento.getNombre());
             pst.setLong(2, elemento.getClase().getId());

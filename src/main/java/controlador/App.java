@@ -138,6 +138,9 @@ public class App {
 
                 defPersonaje = servicio.obtenerPersonaje(seleccion);
 
+                ataPersonaje.calcularAtaque();
+                defPersonaje.calcularAtaque();
+                
                 batalla = servicio.combatePersonaje(ataPersonaje, defPersonaje, batalla.getVencedor());
                 System.out.println("Resultado de la batalla:");
                 System.out.println(batalla);
