@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Batalla {
 
@@ -81,6 +82,17 @@ public class Batalla {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Batalla batalla)) return false;
+        return Objects.equals(id, batalla.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
     public String toString() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -89,7 +101,7 @@ public class Batalla {
                 "El ( " + fecha.format(formatter) +
                 " ) Combate " + atacante.getNombre() +
                 " VS " + defensor.getNombre() +
-                " Vencedor " + vencedor.getNombre() +
+                ", Vencedor " + vencedor.getNombre() +
                 ". " + resumen;
     }
 }

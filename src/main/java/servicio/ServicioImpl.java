@@ -81,14 +81,18 @@ public class ServicioImpl implements Servicio {
         try (Connection conn = Database.getConnection()) {
             CrudDAO<Batalla> batallaDAO = new BatallaDAO(conn);
             CrudDAO<Personaje> personajeDAO = new PersonajeDAO(conn);
-            String mensaje = "";
+            StringBuilder mensaje = new StringBuilder();
+
+            mensaje.append("⛔ " + vencedor.getNombre() + " ha sido el Vencedor ⛔");
+
             if (atacante.estaMuerto()) {
-                mensaje = atacante.getNombre() + " esta muerto.";
+                mensaje.append(" Personaje " + atacante.getNombre() + " esta muerto 💥.");
             }
             if ( defensor.estaMuerto()) {
-                mensaje = defensor.getNombre() + " esta muerto.";
+                mensaje.append(" Personaje " + defensor.getNombre() + " esta muerto 💥.");
             }
-            batalla = new Batalla(atacante, defensor, vencedor, LocalDate.now().atStartOfDay(), mensaje);
+            batalla = new Batalla(atacante, defensor, vencedor, LocalDate.now().atStartOfDay(), mensaje.toString());
+
             try {
                 // Para eliminar autocommit
                 conn.setAutoCommit(false);

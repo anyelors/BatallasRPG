@@ -15,5 +15,4 @@ public interface CrudDAO<T> {
 
     void actualizar( T obj ) throws SQLException;
 
-
 }

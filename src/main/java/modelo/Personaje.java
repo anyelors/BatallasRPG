@@ -7,9 +7,9 @@ public class Personaje {
     private Long id;
     private String nombre;
     private Clase clase;
-    private Long nivel;
-    private Long experiencia;
-    private Long vida;
+    private int nivel;
+    private int experiencia;
+    private int vida;
 
     public Personaje() {
     }
@@ -17,12 +17,12 @@ public class Personaje {
     public Personaje(String nombre, Clase id_clase) {
         this.nombre = nombre;
         this.clase = id_clase;
-        this.nivel = 0L;
-        this.experiencia = 0L;
-        this.vida = 100L;
+        this.nivel = 0;
+        this.experiencia = 0;
+        this.vida = 100;
     }
 
-    public Personaje(Long id, String nombre, Clase id_clase, Long nivel, Long experiencia, Long vida) {
+    public Personaje(Long id, String nombre, Clase id_clase, int nivel, int experiencia, int vida) {
         this.id = id;
         this.nombre = nombre;
         this.clase = id_clase;
@@ -55,34 +55,34 @@ public class Personaje {
         this.clase = clase;
     }
 
-    public Long getNivel() {
+    public int getNivel() {
         return nivel;
     }
 
-    public void setNivel(Long nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
-    public Long getExperiencia() {
+    public int getExperiencia() {
         return experiencia;
     }
 
-    public void setExperiencia(Long experiencia) {
+    public void setExperiencia(int experiencia) {
         this.experiencia = experiencia;
     }
 
-    public Long getVida() {
+    public int getVida() {
         return vida;
     }
 
-    public void setVida(Long vida) {
+    public void setVida(int vida) {
         this.vida = vida;
     }
 
     // Reduce la vida del personaje por el daño recibido. Si el daño es superior a la vida, esta se reduce 0.
-    public void pierdeVida( Long daño ) {
+    public void pierdeVida( int daño ) {
         if (daño >= this.vida) {
-            this.vida = 0L;
+            this.vida = 0;
         } else {
             this.vida -= daño;
         }
@@ -117,7 +117,7 @@ public class Personaje {
     */
     public void subirExperiencia( int experiencia ) {
         this.experiencia += experiencia;
-        Long experienciaParaSubirNivel = 100 + ( this.nivel * 5 );
+        int experienciaParaSubirNivel = 100 + ( this.nivel * 5 );
         if ( this.experiencia >= experienciaParaSubirNivel ) {
             this.experiencia = this.experiencia - experienciaParaSubirNivel;
             this.nivel += 1;
@@ -140,7 +140,7 @@ public class Personaje {
         Random rnd = new Random();
         float bonificacionClase = obtenerBonus(this.clase);
         float bonificacionSuerte = rnd.nextInt(15);
-        return (this.nivel * 10) + (this.vida / 5) + bonificacionClase + bonificacionSuerte;
+        return (this.nivel * 10) + ((float) this.vida / 5) + bonificacionClase + bonificacionSuerte;
     }
 
     @Override

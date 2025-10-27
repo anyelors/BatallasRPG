@@ -38,9 +38,9 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
                 personaje.setNombre(rs.getString("nombre"));
                 Clase clase = claseDAO.obtener(rs.getLong("id_clase"));
                 personaje.setClase(clase);
-                personaje.setExperiencia(rs.getLong("experiencia"));
-                personaje.setNivel(rs.getLong("nivel"));
-                personaje.setVida(rs.getLong("vida"));
+                personaje.setExperiencia(rs.getInt("experiencia"));
+                personaje.setNivel(rs.getInt("nivel"));
+                personaje.setVida(rs.getInt("vida"));
                 personajes.add(personaje);
             }
         }
@@ -70,9 +70,9 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
                 personaje.setNombre(rs.getString("nombre"));
                 Clase clase = claseDAO.obtener(rs.getLong("id_clase"));
                 personaje.setClase(clase);
-                personaje.setExperiencia(rs.getLong("experiencia"));
-                personaje.setNivel(rs.getLong("nivel"));
-                personaje.setVida(rs.getLong("vida"));
+                personaje.setExperiencia(rs.getInt("experiencia"));
+                personaje.setNivel(rs.getInt("nivel"));
+                personaje.setVida(rs.getInt("vida"));
             }
         }
         return personaje;
@@ -84,9 +84,9 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
         try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, elemento.getNombre());
             pst.setLong(2, elemento.getClase().getId());
-            pst.setLong(3, elemento.getNivel());
-            pst.setLong(4, elemento.getExperiencia());
-            pst.setLong(5, elemento.getVida());
+            pst.setInt(3, elemento.getNivel());
+            pst.setInt(4, elemento.getExperiencia());
+            pst.setInt(5, elemento.getVida());
 
             pst.executeUpdate();
             ResultSet rs = pst.getGeneratedKeys();
@@ -106,9 +106,9 @@ public class PersonajeDAO implements CrudDAO<Personaje> {
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, elemento.getNombre());
             pst.setLong(2, elemento.getClase().getId());
-            pst.setLong(3, elemento.getNivel());
-            pst.setLong(4, elemento.getExperiencia());
-            pst.setLong(5, elemento.getVida());
+            pst.setInt(3, elemento.getNivel());
+            pst.setInt(4, elemento.getExperiencia());
+            pst.setInt(5, elemento.getVida());
             pst.setLong(6, elemento.getId());
 
             pst.executeUpdate();
