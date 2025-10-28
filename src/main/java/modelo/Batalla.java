@@ -94,14 +94,7 @@ public class Batalla {
 
     @Override
     public String toString() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-        return  "#" + id +
-                "El ( " + fecha.format(formatter) +
-                " ) Combate " + atacante.getNombre() +
-                " VS " + defensor.getNombre() +
-                ", Vencedor " + vencedor.getNombre() +
-                ". " + resumen;
+        return STR."#\{id} El ( \{fecha.format(formatter)} ) Combate \{atacante.getNombre()} VS \{defensor.getNombre()}, Vencedor \{vencedor.getNombre()}. \{resumen}";
     }
 }
